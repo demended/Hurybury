@@ -79,7 +79,7 @@ async def ask_ai(
     messages = [{"role": "system", "content": system_prompt}] + history
 
     # Определяем модель (с поиском или без)
-    actual_model = _get_model_for_request(model, cfg)
+    actual_model = model
 
     payload = {
         "model": actual_model,
