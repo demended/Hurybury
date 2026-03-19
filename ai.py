@@ -50,19 +50,6 @@ def _render_system_prompt(raw_prompt: str, context: dict, long_term_facts: list[
     return result
 
 
-def _get_model_for_request(model: str, cfg: dict) -> str:
-    """
-    Если в config включён поиск — добавляет суффикс :online к модели.
-    Модели с :online на OpenRouter автоматически ищут в интернете.
-    Некоторые модели уже имеют встроенный поиск — для них суффикс не нужен.
-    """
-    search_enabled = cfg.get("search", {}).get("enabled", False)
-    if search_enabled and ":online" not in model and ":free" in model:
-        # Заменяем :free на :online — OpenRouter поддерживает оба суффикса
-        return model.replace(":free", ":online")
-    return model
-
-
 async def ask_ai(
     system_prompt_raw: str,
     history: list[dict],
